@@ -6,6 +6,6 @@ final class QCIndicatorContainerTests: XCTestCase {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct
         // results.
-        XCTAssertEqual(QCIndicatorContainer().text, "Hello, World!")
+        //XCTAssertEqual(QCIndicatorContainer().text, "Hello, World!")
     }
 }
