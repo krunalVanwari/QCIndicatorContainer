@@ -1,7 +1,7 @@
 
 import UIKit
 
-public typealias QCCompletedBlock = () -> Void
+public typealias QCVoidFunc = () -> Void
 
 public final class QCIndicatorContainer:NSObject {
  
@@ -10,18 +10,19 @@ public final class QCIndicatorContainer:NSObject {
     internal var accessNames = [String]()
     internal var vcRefrences = [UIViewController]()
     internal var timerSource: DispatchSourceTimer?
-    internal var completionBlock:QCCompletedBlock?
+    internal var completionBlock:QCVoidFunc?
+    internal var onTapAction:QCVoidFunc?
     internal var animateView:Bool = true
     
+    // public get variables
     fileprivate(set) public var horizontalPosition:Horizontal = .center
     fileprivate(set) public var verticalPosition:Vertical = .center
     fileprivate(set) public var padding:UIEdgeInsets = .init(value: 0.0)
     fileprivate(set) public var shouldUseMargins:Bool = true
     fileprivate(set) public var animation:Animation = .slide
     fileprivate(set) public var animationDuration:CGFloat = 1.0
-    
-    let tempVC = UINavigationController(rootViewController: UIViewController())
-    
+    fileprivate(set) public var isUserInteractionEnabled:Bool = false
+        
     // initialisers
     public override init() {}
     
@@ -30,15 +31,12 @@ public final class QCIndicatorContainer:NSObject {
     
     // public functions
     
-    public func showIndicator(for vc:UIViewController,indicatorView view:UIView,indicatorSize size:CGSize,animate:Bool=true,timer:Double?=nil,completionHandler:QCCompletedBlock?=nil) {
+    public func showIndicator(for vc:UIViewController,indicatorView view:UIView,indicatorSize size:CGSize,animate:Bool=true,timer:Double?=nil,onTapAction:QCVoidFunc?=nil,completionHandler:QCVoidFunc?=nil) {
         
         hideIndicator(animate: false)
         
         let indicatorWindow = UIWindow()
         indicatorWindow.backgroundColor = UIColor.clear
-        
-        
-        observeOrientationChange()
         
         view.accessibilityLabel = viewID
         givePosition(to: view, for: size, margins: margins(vc))
@@ -47,11 +45,16 @@ public final class QCIndicatorContainer:NSObject {
         }
         
         indicatorWindow.windowLevel = UIWindow.Level.alert - 1
-        indicatorWindow.addSubview(view)
+        
+        
+        let tempVC = UIViewController()
         indicatorWindow.rootViewController = tempVC
+        
+        indicatorWindow.addSubview(view)
+        
         indicatorWindow.center = giveScreenCenter()
         indicatorWindow.isHidden = false
-        indicatorWindow.isUserInteractionEnabled = false
+        indicatorWindow.isUserInteractionEnabled = isUserInteractionEnabled
         
         let id = UUID().uuidString
         indicatorWindow.accessibilityLabel = id
@@ -60,12 +63,19 @@ public final class QCIndicatorContainer:NSObject {
         accessNames.append(id)
         tempWindows.append(indicatorWindow)
         
-        completionBlock = completionHandler
-        animateView = animate
+        self.completionBlock = completionHandler
+        self.animateView = animate
+        self.onTapAction = onTapAction
+        
+        observeOrientationChange()
+        if onTapAction != nil {
+            //TODO: - only works when the property "isUserInteractionEnabled" is set "true"
+            indicatorWindow.subviews.forEach{$0.isUserInteractionEnabled = false}
+            view.isUserInteractionEnabled = true
+            insertTapGesture(to: view)
+        }
         
         delayDismiss(timer)
-        
-        //MARK: - BUG: when delay method is not called the view is not showing
         
     }
     
@@ -159,6 +169,11 @@ public final class QCIndicatorContainer:NSObject {
     @discardableResult
     public func setAnimationDuration(_ duration:CGFloat) -> QCIndicatorContainer {
         self.animationDuration = duration
+        return self
+    }
+    @discardableResult
+    public func setUserInteractionEnabled(_ bool:Bool) -> QCIndicatorContainer {
+        self.isUserInteractionEnabled = bool
         return self
     }
 

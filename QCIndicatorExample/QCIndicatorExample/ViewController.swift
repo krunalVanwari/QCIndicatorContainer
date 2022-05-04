@@ -9,19 +9,18 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    var ref:QCIndicatorContainer?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         let vu = createToastLabel()
         let ind = QCIndicatorContainer()
-//        ind.setHorizontalPosition(.center)
-//        ind.setVerticalPosition(.bottom)
-//        ind.setAnimation(.slide)
-        ind.showIndicator(for: self, indicatorView: vu, indicatorSize: vu.frame.size,animate: false)
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
-//            ind.hideIndicator()
-//        }
-        
+        ind.setUserInteractionEnabled(true)
+        ind.showIndicator(for: self, indicatorView: vu, indicatorSize: vu.frame.size,animate: true, onTapAction:  {
+            ind.hideIndicator()
+        })
+        ref = ind
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
