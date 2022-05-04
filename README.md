@@ -4,8 +4,4 @@ A dynamic container that can show any UIView in given position, it can show mult
 
 ## upcoming features
 
-- custom timer for removing indicator
-- adding animations
-- handling touches on showing views
-- stop user interaction while indicator is presented
 - creating a demo project

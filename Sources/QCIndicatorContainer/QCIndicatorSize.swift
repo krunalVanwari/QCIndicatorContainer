@@ -8,20 +8,7 @@
 import UIKit
 
 extension QCIndicatorContainer {
-    
-    /// position of view on x-axis
-    public enum Horizontal {
-        case left
-        case center
-        case right
-    }
-    /// position of view on y-axis
-    public enum Vertical {
-        case top
-        case center
-        case bottom
-    }
-    
+
     /// called first time for giving position
     internal func givePosition(to view:UIView,for size:CGSize,margins:UIEdgeInsets) {
         let screenBounds = UIScreen.main.bounds
