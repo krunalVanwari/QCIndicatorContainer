@@ -9,27 +9,100 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    var ref:QCIndicatorContainer?
+    var refrence:[QCIndicatorContainer] = []
+    
+    @IBOutlet weak var horizontalOption:UISegmentedControl!
+    @IBOutlet weak var verticalOption:UISegmentedControl!
+    @IBOutlet weak var animationOption:UISegmentedControl!
+    @IBOutlet weak var indicatorOption:UISegmentedControl!
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        let vu = createToastLabel()
-        let ind = QCIndicatorContainer()
-        ind.setUserInteractionEnabled(true)
-        ind.showIndicator(for: self, indicatorView: vu, indicatorSize: vu.frame.size,animate: true, onTapAction:  {
-            ind.hideIndicator()
-        })
-        ref = ind
     }
     
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        print("ended touches")
+    @IBAction func showIndicatorTapped(_ sender:Any) {
+        showIndicator(for: QCIndicatorContainer())
     }
 
+    func showIndicator(for vc:QCIndicatorContainer) {
+        vc.setHorizontalPosition(giveHorizontalOption(horizontalOption.selectedSegmentIndex))
+        vc.setVerticalPosition(giveVerticalOption(verticalOption.selectedSegmentIndex))
+        vc.setAnimation(giveAnimationOption(animationOption.selectedSegmentIndex))
+                
+        let indicatorVu = giveIndicatorOption(indicatorOption.selectedSegmentIndex)
+        
+        vc.showIndicator(for: self, indicatorView: indicatorVu, indicatorSize: indicatorVu.frame.size,onTapAction: {
+            vc.hideIndicator()
+            self.refrence.removeAll(where: {$0 == vc})
+            print(self.refrence.count)
+        })
+        
+        refrence.append(vc)
+    }
 
 }
 
+//MARK: - give appropriate options
+extension ViewController {
+    
+    func giveHorizontalOption(_ val:Int) -> QCIndicatorContainer.Horizontal {
+        switch val {
+        case 0:
+            return .left
+        case 1:
+            return .center
+        case 2:
+            return .right
+        default:
+            return .center
+        }
+    }
+    
+    func giveVerticalOption(_ val:Int) -> QCIndicatorContainer.Vertical {
+        switch val {
+        case 0:
+            return .top
+        case 1:
+            return .center
+        case 2:
+            return .bottom
+        default:
+            return .center
+        }
+    }
+    
+    func giveAnimationOption(_ val:Int) -> QCIndicatorContainer.Animation {
+        switch val {
+        case 0:
+            return .fade
+        case 1:
+            return .zoom
+        case 2:
+            return .slide
+        default:
+            return .slide
+        }
+    }
+    
+    func giveIndicatorOption(_ val:Int) -> UIView {
+        switch val {
+        case 0:
+            return createActivityIndicatorView()
+        case 1:
+            return createToastLabel()
+        case 2:
+            return createImageWithText()
+        default:
+            return createActivityIndicatorView()
+        }
+    }
+    
+}
+
+//MARK: - give Indicator view to present (for only example project)
 extension ViewController {
     
     func createActivityIndicatorView() -> UIView {
@@ -49,7 +122,7 @@ extension ViewController {
         mainView.addConstraint( NSLayoutConstraint(item: headView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 36) )
         mainView.addConstraint( NSLayoutConstraint(item: headView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 36) )
         
-        mainView.frame = CGRect(origin: .zero, size: CGSize(width: 100, height: 100))
+        mainView.frame = CGRect(origin: .zero, size: CGSize(width: 50, height: 50))
         
         return mainView
     }

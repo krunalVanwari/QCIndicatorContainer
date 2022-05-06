@@ -1,24 +1,145 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="QCIndicatorExample" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="j3u-Tu-iB9">
+                                <rect key="frame" x="110" y="184" width="194" height="194"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Horizontal position" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rg6-Ta-bx4">
+                                        <rect key="frame" x="25.666666666666657" y="0.0" width="142.66666666666666" height="20.333333333333332"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="OCC-bv-xSf">
+                                        <rect key="frame" x="6" y="28.333333333333343" width="182" height="32"/>
+                                        <segments>
+                                            <segment title="Left"/>
+                                            <segment title="Center"/>
+                                            <segment title="Right"/>
+                                        </segments>
+                                    </segmentedControl>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vertical position" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aHx-jD-cco">
+                                        <rect key="frame" x="36" y="67.333333333333343" width="122" height="20.333333333333329"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="2GY-BH-Lnq">
+                                        <rect key="frame" x="0.0" y="95.666666666666686" width="194" height="32"/>
+                                        <segments>
+                                            <segment title="Top"/>
+                                            <segment title="Center"/>
+                                            <segment title="Bottom"/>
+                                        </segments>
+                                    </segmentedControl>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Animation" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="afl-oE-5zT">
+                                        <rect key="frame" x="58.999999999999993" y="134.66666666666669" width="76.333333333333314" height="20.333333333333343"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="WVt-wC-Tlb">
+                                        <rect key="frame" x="15" y="163" width="164" height="32"/>
+                                        <segments>
+                                            <segment title="Fade"/>
+                                            <segment title="Zoom"/>
+                                            <segment title="Slide"/>
+                                        </segments>
+                                    </segmentedControl>
+                                </subviews>
+                            </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Indicator" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xFP-Gy-cUU">
+                                <rect key="frame" x="173.66666666666663" y="608.66666666666663" width="67" height="20.333333333333371"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="K7e-Ht-8Rh">
+                                <rect key="frame" x="69.666666666666686" y="637" width="275" height="32"/>
+                                <segments>
+                                    <segment title="HUD"/>
+                                    <segment title="Toast"/>
+                                    <segment title="Notification"/>
+                                </segments>
+                            </segmentedControl>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B1d-o5-L4B">
+                                <rect key="frame" x="141.66666666666663" y="676" width="130.99999999999997" height="36"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Show Indicator"/>
+                                <connections>
+                                    <action selector="showIndicatorTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="eB3-ZW-wPm"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="B1d-o5-L4B" secondAttribute="bottom" constant="150" id="BoT-Aj-DL9"/>
+                            <constraint firstItem="K7e-Ht-8Rh" firstAttribute="centerX" secondItem="B1d-o5-L4B" secondAttribute="centerX" id="ItH-MP-5uV"/>
+                            <constraint firstItem="B1d-o5-L4B" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Kvl-mu-NwE"/>
+                            <constraint firstItem="B1d-o5-L4B" firstAttribute="top" secondItem="K7e-Ht-8Rh" secondAttribute="bottom" constant="8" id="OOd-Cd-Tkr"/>
+                            <constraint firstItem="j3u-Tu-iB9" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="150" id="RGn-nI-xmk"/>
+                            <constraint firstItem="j3u-Tu-iB9" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="XAw-Kz-OIk"/>
+                            <constraint firstItem="j3u-Tu-iB9" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="140" id="bdT-bW-rXX"/>
+                            <constraint firstItem="K7e-Ht-8Rh" firstAttribute="top" secondItem="xFP-Gy-cUU" secondAttribute="bottom" constant="8" id="eFc-MS-CQm"/>
+                            <constraint firstItem="j3u-Tu-iB9" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="esC-om-eZM"/>
+                            <constraint firstItem="B1d-o5-L4B" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="ewG-nW-qHs"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="B1d-o5-L4B" secondAttribute="trailing" constant="150" id="jTc-Mg-PWS"/>
+                            <constraint firstItem="xFP-Gy-cUU" firstAttribute="centerX" secondItem="K7e-Ht-8Rh" secondAttribute="centerX" id="tHl-Se-YVu"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="jTc-Mg-PWS"/>
+                                <exclude reference="RGn-nI-xmk"/>
+                                <exclude reference="XAw-Kz-OIk"/>
+                                <exclude reference="ewG-nW-qHs"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=compact-widthClass=regular">
+                            <mask key="constraints">
+                                <exclude reference="BoT-Aj-DL9"/>
+                                <include reference="jTc-Mg-PWS"/>
+                                <include reference="RGn-nI-xmk"/>
+                                <include reference="XAw-Kz-OIk"/>
+                                <exclude reference="bdT-bW-rXX"/>
+                                <exclude reference="esC-om-eZM"/>
+                                <exclude reference="Kvl-mu-NwE"/>
+                                <include reference="ewG-nW-qHs"/>
+                            </mask>
+                        </variation>
                     </view>
+                    <connections>
+                        <outlet property="animationOption" destination="WVt-wC-Tlb" id="EOF-k7-FJs"/>
+                        <outlet property="horizontalOption" destination="OCC-bv-xSf" id="6uV-vY-Bsd"/>
+                        <outlet property="indicatorOption" destination="K7e-Ht-8Rh" id="lN4-ya-Te0"/>
+                        <outlet property="verticalOption" destination="2GY-BH-Lnq" id="qCr-XY-oRy"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="198" y="74"/>
         </scene>
     </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

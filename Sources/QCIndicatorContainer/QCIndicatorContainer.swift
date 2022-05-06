@@ -31,6 +31,15 @@ public final class QCIndicatorContainer:NSObject {
     
     // public functions
     
+    /// This method shows the given UIView to the user at the position which is set before calling this function. you must keep a strong refrence of QCIndicatorContainer instance otherwise the indicator will not be shown.
+    /// - Parameters:
+    ///   - vc: the ViewController on which the indicator is to be shown
+    ///   - view: a UIView which will be shown as an indicator
+    ///   - size: size of the indicator. very important for presenting indicator. without this the view will not be shown properly
+    ///   - animate: a Bool value indicating whether or not you want to show animation. default is true
+    ///   - timer: a Double value if given the indicator will be dismissed after given seconds. default is nil
+    ///   - onTapAction: a type of closure, called when the user taps on given view. to use this you must set "isUserInteractionEnabled" to true
+    ///   - completionHandler: a type of  closue, caled when the indicator is dismissed
     public func showIndicator(for vc:UIViewController,indicatorView view:UIView,indicatorSize size:CGSize,animate:Bool=true,timer:Double?=nil,onTapAction:QCVoidFunc?=nil,completionHandler:QCVoidFunc?=nil) {
         
         hideIndicator(animate: false)
@@ -79,6 +88,8 @@ public final class QCIndicatorContainer:NSObject {
         
     }
     
+    /// This method that hides the indicator  which was shown before.
+    /// - Parameter animate: a Bool value indicating whether or not you want to perform dismiss animation. default vakue if the one for show animation
     public func hideIndicator(animate:Bool?=nil) {
         
         if let _ = timerSource {
