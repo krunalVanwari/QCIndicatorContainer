@@ -33,7 +33,6 @@ extension QCIndicatorContainer {
         }
         
         view.frame = CGRect(origin: point, size: size)
-        
     }
     
     /// called when the orientation is changed
@@ -63,5 +62,4 @@ extension QCIndicatorContainer {
             return UIEdgeInsets(top: vc.topLayoutGuide.length, left: 0.0, bottom: vc.bottomLayoutGuide.length, right: 0.0)
         }
     }
-    
 }

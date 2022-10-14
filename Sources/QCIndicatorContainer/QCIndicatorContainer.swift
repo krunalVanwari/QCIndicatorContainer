@@ -6,9 +6,8 @@ public typealias QCVoidFunc = () -> Void
 public final class QCIndicatorContainer:NSObject {
  
     // private variables
-    internal var tempWindows = [UIWindow]()
-    internal var accessNames = [String]()
-    internal var vcRefrences = [UIViewController]()
+    internal var accessNames:String!
+    internal var vcRefrences:UIViewController!
     internal var timerSource: DispatchSourceTimer?
     internal var completionBlock:QCVoidFunc?
     internal var onTapAction:QCVoidFunc?
@@ -21,13 +20,10 @@ public final class QCIndicatorContainer:NSObject {
     fileprivate(set) public var shouldUseMargins:Bool = true
     fileprivate(set) public var animation:Animation = .slide
     fileprivate(set) public var animationDuration:CGFloat = 1.0
-    fileprivate(set) public var isUserInteractionEnabled:Bool = false
+    fileprivate(set) public var isUserInteractionEnabled:Bool = true
         
     // initialisers
     public override init() {}
-    
-    // constants
-    internal let viewID:String = "viewID"
     
     // public functions
     
@@ -42,35 +38,24 @@ public final class QCIndicatorContainer:NSObject {
     ///   - completionHandler: a type of  closue, caled when the indicator is dismissed
     public func showIndicator(for vc:UIViewController,indicatorView view:UIView,indicatorSize size:CGSize,animate:Bool=true,timer:Double?=nil,onTapAction:QCVoidFunc?=nil,completionHandler:QCVoidFunc?=nil) {
         
-        hideIndicator(animate: false)
+        if vcRefrences != nil {
+            hideIndicator(animate: false)
+        }
         
-        let indicatorWindow = UIWindow()
-        indicatorWindow.backgroundColor = UIColor.clear
-        
-        view.accessibilityLabel = viewID
         givePosition(to: view, for: size, margins: margins(vc))
         if animate {
             animateVu(view: view, hide: false,margins: animation == .slide ? margins(vc) : nil)
         }
         
-        indicatorWindow.windowLevel = UIWindow.Level.alert - 1
+        vc.view.addSubview(view)
         
-        
-        let tempVC = UIViewController()
-        indicatorWindow.rootViewController = tempVC
-        
-        indicatorWindow.addSubview(view)
-        
-        indicatorWindow.center = giveScreenCenter()
-        indicatorWindow.isHidden = false
-        indicatorWindow.isUserInteractionEnabled = isUserInteractionEnabled
+        view.isUserInteractionEnabled = isUserInteractionEnabled
         
         let id = UUID().uuidString
-        indicatorWindow.accessibilityLabel = id
+        view.accessibilityLabel = id
 
-        vcRefrences.append(vc)
-        accessNames.append(id)
-        tempWindows.append(indicatorWindow)
+        vcRefrences = vc
+        accessNames = id
         
         self.completionBlock = completionHandler
         self.animateView = animate
@@ -78,14 +63,9 @@ public final class QCIndicatorContainer:NSObject {
         
         observeOrientationChange()
         if onTapAction != nil {
-            //TODO: - only works when the property "isUserInteractionEnabled" is set "true"
-            indicatorWindow.subviews.forEach{$0.isUserInteractionEnabled = false}
-            view.isUserInteractionEnabled = true
             insertTapGesture(to: view)
         }
-        
         delayDismiss(timer)
-        
     }
     
     /// This method that hides the indicator  which was shown before.
@@ -96,38 +76,23 @@ public final class QCIndicatorContainer:NSObject {
             timerSource!.cancel()
             timerSource = nil
         }
-                
-        windowLoop:for window in tempWindows.enumerated() {
-        
-            if window.element.accessibilityLabel == accessNames[window.offset] {
-                
-                for view in window.element.subviews {
-                    
-                    if view.accessibilityLabel == viewID {
-                        
-                        if animate ?? animateView {
-                            
-                            animateVu(view: view, hide: true,margins: animation == .slide ? margins(vcRefrences[window.offset]) : nil) {
-                                
-                                self.removeIndicator(at: window.offset)
-                                
-                            }
-                        } else {
-                            self.removeIndicator(at: window.offset)
-                        }
-                        
-                        break windowLoop
+        for view in vcRefrences.view.subviews {
+            if view.accessibilityLabel == accessNames {
+                if animate ?? animateView {
+                    animateVu(view: view, hide: true,margins: animation == .slide ? margins(vcRefrences) : nil) {
+                        view.removeFromSuperview()
+                        self.removeIndicator()
                     }
+                } else {
+                    view.removeFromSuperview()
+                    self.removeIndicator()
                 }
             }
         }
         
         completionBlock?()
         
-        if tempWindows.isEmpty {
-            removeOrientationObserver()
-        }
-        
+        removeOrientationObserver()
     }
     
     internal func delayDismiss(_ time: Double?) {
@@ -187,6 +152,4 @@ public final class QCIndicatorContainer:NSObject {
         self.isUserInteractionEnabled = bool
         return self
     }
-
-    
 }

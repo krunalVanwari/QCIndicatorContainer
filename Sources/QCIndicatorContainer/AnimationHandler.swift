@@ -30,7 +30,6 @@ extension QCIndicatorContainer {
         } completion: { _ in
             completion?()
         }
-        
     }
     
     private func performZoomAnimation(to vu:UIView,hide:Bool,completion:(() -> Void)?=nil) {
@@ -44,7 +43,6 @@ extension QCIndicatorContainer {
         } completion: { _ in
             completion?()
         }
-        
     }
     
     private func performSlideAnimation(to vu:UIView,hide:Bool,margins:UIEdgeInsets,completion:(() -> Void)?=nil) {
@@ -90,9 +88,5 @@ extension QCIndicatorContainer {
         } completion: { _ in
             completion?()
         }
-
     }
-    
-    
-    
 }

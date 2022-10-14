@@ -9,7 +9,7 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    var refrence:[QCIndicatorContainer] = []
+    let indi = QCIndicatorContainer()
     
     @IBOutlet weak var horizontalOption:UISegmentedControl!
     @IBOutlet weak var verticalOption:UISegmentedControl!
@@ -24,25 +24,20 @@ class ViewController: UIViewController {
     }
     
     @IBAction func showIndicatorTapped(_ sender:Any) {
-        showIndicator(for: QCIndicatorContainer())
+        showIndicator(for: indi)
     }
 
     func showIndicator(for vc:QCIndicatorContainer) {
         vc.setHorizontalPosition(giveHorizontalOption(horizontalOption.selectedSegmentIndex))
         vc.setVerticalPosition(giveVerticalOption(verticalOption.selectedSegmentIndex))
         vc.setAnimation(giveAnimationOption(animationOption.selectedSegmentIndex))
-                
+        
         let indicatorVu = giveIndicatorOption(indicatorOption.selectedSegmentIndex)
         
         vc.showIndicator(for: self, indicatorView: indicatorVu, indicatorSize: indicatorVu.frame.size,onTapAction: {
             vc.hideIndicator()
-            self.refrence.removeAll(where: {$0 == vc})
-            print(self.refrence.count)
         })
-        
-        refrence.append(vc)
     }
-
 }
 
 //MARK: - give appropriate options

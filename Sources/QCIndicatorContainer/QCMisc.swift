@@ -9,9 +9,8 @@ import UIKit
 
 extension QCIndicatorContainer {
 
-    internal func removeIndicator(at index:Int) {
-        tempWindows.remove(at: index)
-        accessNames.remove(at: index)
-        vcRefrences.remove(at: index)
+    internal func removeIndicator() {
+        accessNames = nil
+        vcRefrences = nil
     }
 }

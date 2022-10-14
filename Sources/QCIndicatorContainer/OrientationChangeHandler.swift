@@ -20,17 +20,13 @@ extension QCIndicatorContainer {
     @objc private func orientationChanged() {
         switch UIDevice.current.orientation {
         case .portrait,.landscapeLeft,.landscapeRight:
-            for (id,window) in tempWindows.enumerated() {
-                for view in window.subviews {
-                    if view.accessibilityLabel == viewID {
-                        changePosition(of: view, for: vcRefrences[id])
-                    }
+            for view in vcRefrences.view.subviews {
+                if view.accessibilityLabel == accessNames {
+                    changePosition(of: view, for: vcRefrences)
                 }
             }
         default:
             break
         }
     }
-    
-    
 }
