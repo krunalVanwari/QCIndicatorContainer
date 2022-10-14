@@ -80,12 +80,11 @@ public final class QCIndicatorContainer:NSObject {
                     if animate ?? animateView {
                         animateVu(view: view, hide: true,margins: animation == .slide ? margins(vcRefrences) : nil) {
                             view.removeFromSuperview()
-                            self.removeIndicator()
                         }
                     } else {
                         view.removeFromSuperview()
-                        self.removeIndicator()
                     }
+                    self.removeIndicator()
                 }
             }
         }
