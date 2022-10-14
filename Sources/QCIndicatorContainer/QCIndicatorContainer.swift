@@ -38,9 +38,7 @@ public final class QCIndicatorContainer:NSObject {
     ///   - completionHandler: a type of  closue, caled when the indicator is dismissed
     public func showIndicator(for vc:UIViewController,indicatorView view:UIView,indicatorSize size:CGSize,animate:Bool=true,timer:Double?=nil,onTapAction:QCVoidFunc?=nil,completionHandler:QCVoidFunc?=nil) {
         
-        if vcRefrences != nil {
-            hideIndicator(animate: false)
-        }
+        hideIndicator(animate: false)
         
         givePosition(to: view, for: size, margins: margins(vc))
         if animate {
@@ -76,16 +74,18 @@ public final class QCIndicatorContainer:NSObject {
             timerSource!.cancel()
             timerSource = nil
         }
-        for view in vcRefrences.view.subviews {
-            if view.accessibilityLabel == accessNames {
-                if animate ?? animateView {
-                    animateVu(view: view, hide: true,margins: animation == .slide ? margins(vcRefrences) : nil) {
+        if vcRefrences != nil {
+            for view in vcRefrences.view.subviews {
+                if view.accessibilityLabel == accessNames {
+                    if animate ?? animateView {
+                        animateVu(view: view, hide: true,margins: animation == .slide ? margins(vcRefrences) : nil) {
+                            view.removeFromSuperview()
+                            self.removeIndicator()
+                        }
+                    } else {
                         view.removeFromSuperview()
                         self.removeIndicator()
                     }
-                } else {
-                    view.removeFromSuperview()
-                    self.removeIndicator()
                 }
             }
         }
